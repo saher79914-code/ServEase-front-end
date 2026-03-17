@@ -57,10 +57,12 @@ class _SplashScreenState extends State<SplashScreen>
               children: [
 
                 Container(
-                  padding: EdgeInsets.all(20),
+                  width: 160,
+                  height: 160,
+                  padding: EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     color: Colors.white,
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(32),
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black12,
@@ -71,9 +73,12 @@ class _SplashScreenState extends State<SplashScreen>
                   ),
                   child: Image.asset(
                     'assets/images/servease_logo.png',
-                    width: 100,
-                    height: 100,
                     fit: BoxFit.contain,
+                    errorBuilder: (context, error, stackTrace) => Icon(
+                      Icons.home_outlined,
+                      size: 80,
+                      color: Color(0xFF5B8DEF),
+                    ),
                   ),
                 ),
 
