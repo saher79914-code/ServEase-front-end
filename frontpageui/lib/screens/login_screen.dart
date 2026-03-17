@@ -7,6 +7,32 @@ class LoginScreen extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  Future<void> login() async {
+    var url = 'https://wholesaleapp.sandbox.pk/api/login';
+
+    var body = jsonEncode({
+      'email': emailController.text,
+      'password': passwordController.text,
+    });
+
+    var response = await http.post(
+      Uri.parse(url),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: body,
+    );
+
+    if (response.statusCode == 200) {
+      var data = jsonDecode(response.body);
+      print(data);
+      Get.toNamed('/dashboard');
+    } else {
+      print(response.statusCode);
+      print(response.body);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -79,9 +105,10 @@ class LoginScreen extends StatelessWidget {
                   width: double.infinity,
                   height: 50,
                   child: ElevatedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, AppRoutes.dashboard);
-                    },
+                    onPressed: login,
+                    // onPressed: () {
+                    //   Navigator.pushNamed(context, AppRoutes.dashboard);
+                    // },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: const Color(0xFF5B8DEF),
                       shape: RoundedRectangleBorder(
